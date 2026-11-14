@@ -1,0 +1,5 @@
+.atl/
+__pycache__/
+*.pyc
+.venv/
+.vscode/

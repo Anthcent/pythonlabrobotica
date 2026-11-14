@@ -1,0 +1,495 @@
+{
+  "exercises": [
+    {
+      "id": "01_hola_mundo",
+      "title": "01 · Primeros pasos",
+      "level": "Inicial",
+      "concept": "print(), comentarios, variables",
+      "goal": "Comprender el orden de ejecución y la salida por consola.",
+      "explanation": "Python ejecuta instrucciones de arriba hacia abajo. print() muestra mensajes. Un comentario empieza con # y no se ejecuta.",
+      "variants": [
+        {
+          "name": "Saludo básico",
+          "description": "Primera salida en consola Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/01_hola_mundo/variante_1.py",
+          "code": "# print() escribe información en la consola.\nprint(\"¡Hola, mundo!\")  # Muestra el resultado en la consola.\nprint(\"Estoy aprendiendo Python\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Saludo con variable",
+          "description": "Un dato almacenado en memoria Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/01_hola_mundo/variante_2.py",
+          "code": "# Una variable guarda un valor para reutilizarlo.\nnombre = \"Andrea\"  # Asigna o actualiza un valor.\nprint(\"Hola\", nombre)  # Muestra el resultado en la consola.\nprint(\"¡Bienvenida al curso!\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Saludo con entrada",
+          "description": "valores definidos recibe texto de la consola Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/01_hola_mundo/variante_3.py",
+          "code": "# Valor resuelto: cambia el nombre directamente para experimentar.\nnombre = \"Andrea\"  # Asigna o actualiza un valor.\nprint(\"Hola, \" + nombre)  # Muestra el resultado en la consola.\nprint(\"Hoy escribirás tus primeras instrucciones\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Saludo con formato",
+          "description": "f-strings introducen variables en cadenas Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/01_hola_mundo/variante_4.py",
+          "code": "# f antes de las comillas permite incluir expresiones entre llaves.\nnombre = \"Andrea\"  # Asigna o actualiza un valor.\nedad = 18  # Asigna o actualiza un valor.\nprint(f\"{nombre}, el próximo año tendrás {edad + 1} años\")  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "print",
+        "comentario",
+        "variable",
+        "input",
+        "f-string"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "02_datos",
+      "title": "02 · Variables y tipos",
+      "level": "Inicial",
+      "concept": "str, int, float, bool, type",
+      "goal": "Distinguir texto, enteros, decimales y booleanos.",
+      "explanation": "Cada dato tiene un tipo. input() siempre entrega texto; usa int() o float() para convertirlo antes de calcular.",
+      "variants": [
+        {
+          "name": "Tipos básicos",
+          "description": "Observa cuatro tipos de datos Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/02_datos/variante_1.py",
+          "code": "# str = texto, int = entero, float = decimal, bool = verdadero/falso.\nnombre = \"Luis\"  # Asigna o actualiza un valor.\nedad = 16  # Asigna o actualiza un valor.\naltura = 1.72  # Asigna o actualiza un valor.\nestudia = True  # Asigna o actualiza un valor.\nprint(nombre, edad, altura, estudia)  # Muestra el resultado en la consola.\nprint(type(edad))  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Convertir entradas",
+          "description": "Convierte texto a número Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/02_datos/variante_2.py",
+          "code": "# Los enteros se escriben sin comillas, por ejemplo 6.\nnumero = 6  # Asigna o actualiza un valor.\nprint(\"El doble es:\", numero * 2)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Precio decimal",
+          "description": "Operación con float() Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/02_datos/variante_3.py",
+          "code": "# Los decimales se escriben con punto, por ejemplo 12.5.\nprecio = 12.5  # Asigna o actualiza un valor.\ncantidad = 3  # Asigna o actualiza un valor.\ntotal = precio * cantidad  # Asigna o actualiza un valor.\nprint(f\"Total: {total:.2f}\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Intercambio de valores",
+          "description": "Asignación múltiple Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/02_datos/variante_4.py",
+          "code": "# Python permite intercambiar variables sin una temporal.\na = 3  # Asigna o actualiza un valor.\nb = 8  # Asigna o actualiza un valor.\nprint(\"Antes:\", a, b)  # Muestra el resultado en la consola.\na, b = b, a  # Asigna o actualiza un valor.\nprint(\"Después:\", a, b)  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "str",
+        "int",
+        "float",
+        "bool",
+        "type"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "03_operadores",
+      "title": "03 · Operadores",
+      "level": "Inicial",
+      "concept": "+, -, *, /, //, %, **, ==",
+      "goal": "Practicar cálculos y comparaciones.",
+      "explanation": "Los operadores aritméticos generan resultados numéricos. Los de comparación generan True o False.",
+      "variants": [
+        {
+          "name": "Calculadora sencilla",
+          "description": "Suma, resta y multiplicación Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/03_operadores/variante_1.py",
+          "code": "# Dos valores definidos permiten comparar tres operaciones.\na = 12  # Asigna o actualiza un valor.\nb = 4  # Asigna o actualiza un valor.\nprint(\"Suma:\", a + b)  # Muestra el resultado en la consola.\nprint(\"Resta:\", a - b)  # Muestra el resultado en la consola.\nprint(\"Producto:\", a * b)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Divisiones",
+          "description": "Cociente real, entero y residuo Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/03_operadores/variante_2.py",
+          "code": "# / división normal; // división entera; % residuo.\na = 17  # Asigna o actualiza un valor.\nb = 5  # Asigna o actualiza un valor.\nprint(\"División:\", a / b)  # Muestra el resultado en la consola.\nprint(\"Cociente entero:\", a // b)  # Muestra el resultado en la consola.\nprint(\"Residuo:\", a % b)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Potencias",
+          "description": "Cálculo de área y potencia Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/03_operadores/variante_3.py",
+          "code": "# ** significa elevar a una potencia.\nlado = 5.0  # Asigna o actualiza un valor.\narea = lado ** 2  # Asigna o actualiza un valor.\nprint(f\"Área: {area:.2f}\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Comparadores",
+          "description": "Verifica relaciones entre números Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/03_operadores/variante_4.py",
+          "code": "# == compara igualdad; != compara diferencia.\na = 8  # Asigna o actualiza un valor.\nb = 5  # Asigna o actualiza un valor.\nprint(\"¿Son iguales?\", a == b)  # Muestra el resultado en la consola.\nprint(\"¿A es mayor?\", a > b)  # Muestra el resultado en la consola.\nprint(\"¿Son distintos?\", a != b)  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "operador",
+        "//",
+        "%",
+        "**",
+        "comparación"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "04_condicionales",
+      "title": "04 · Condicionales",
+      "level": "Básico",
+      "concept": "if, elif, else, and, or",
+      "goal": "Tomar decisiones según condiciones.",
+      "explanation": "La indentación de cuatro espacios agrupa el código dentro de cada condición. elif comprueba otro caso; else resuelve los restantes.",
+      "variants": [
+        {
+          "name": "Mayoría de edad",
+          "description": "Decisión con if/else Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/04_condicionales/variante_1.py",
+          "code": "# Los bloques de if y else llevan sangría de 4 espacios.\nedad = 19  # Asigna o actualiza un valor.\nif edad >= 18:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n    print(\"Eres mayor de edad\")  # Muestra el resultado en la consola.\nelse:  # Alternativa cuando no se cumple la condición anterior.\n    print(\"Eres menor de edad\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Calificaciones",
+          "description": "Tres caminos con elif Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/04_condicionales/variante_2.py",
+          "code": "nota = 17.0  # Asigna o actualiza un valor.\nif nota >= 16:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n    print(\"Excelente\")  # Muestra el resultado en la consola.\nelif nota >= 10:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n    print(\"Aprobado\")  # Muestra el resultado en la consola.\nelse:  # Alternativa cuando no se cumple la condición anterior.\n    print(\"Debes practicar más\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Rango válido",
+          "description": "Combina condiciones con and Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/04_condicionales/variante_3.py",
+          "code": "# and exige que ambas condiciones se cumplan.\ntemperatura = 23.0  # Asigna o actualiza un valor.\nif temperatura >= 18 and temperatura <= 28:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n    print(\"Temperatura confortable\")  # Muestra el resultado en la consola.\nelse:  # Alternativa cuando no se cumple la condición anterior.\n    print(\"Fuera del rango confortable\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Acceso con clave",
+          "description": "Texto y operadores lógicos Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/04_condicionales/variante_4.py",
+          "code": "usuario = \"estudiante\"  # Asigna o actualiza un valor.\nclave = \"1234\"  # Asigna o actualiza un valor.\n# Ejemplo didáctico: no almacenes claves reales así.\nif usuario == \"estudiante\" and clave == \"1234\":  # Comprueba la condición; ejecuta el bloque si es verdadera.\n    print(\"Acceso permitido\")  # Muestra el resultado en la consola.\nelse:  # Alternativa cuando no se cumple la condición anterior.\n    print(\"Acceso denegado\")  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "if",
+        "elif",
+        "else",
+        "and",
+        "indentación"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "05_bucles_for",
+      "title": "05 · Repetición con for",
+      "level": "Básico",
+      "concept": "for, range, acumuladores",
+      "goal": "Repetir tareas una cantidad determinada de veces.",
+      "explanation": "range(n) genera valores desde cero hasta n-1. El bloque indentado se repite una vez por cada valor.",
+      "variants": [
+        {
+          "name": "Contador",
+          "description": "Cuenta de uno a cinco Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/05_bucles_for/variante_1.py",
+          "code": "# range(1, 6) incluye 1, 2, 3, 4, 5.\nfor numero in range(1, 6):  # Repite el bloque para cada elemento del recorrido.\n    print(\"Paso\", numero)  # Muestra el resultado en la consola.\nprint(\"Fin del bucle\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Tabla de multiplicar",
+          "description": "Repite una operación Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/05_bucles_for/variante_2.py",
+          "code": "valor = 7  # Asigna o actualiza un valor.\nfor factor in range(1, 11):  # Repite el bloque para cada elemento del recorrido.\n    print(f\"{valor} x {factor} = {valor * factor}\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Acumulador",
+          "description": "Suma números con += Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/05_bucles_for/variante_3.py",
+          "code": "total = 0  # Asigna o actualiza un valor.\nfor numero in range(1, 6):  # Repite el bloque para cada elemento del recorrido.\n    total += numero  # Equivale a total = total + numero.\n    print(\"Acumulado:\", total)  # Muestra el resultado en la consola.\nprint(\"Suma total:\", total)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Recorrido de texto",
+          "description": "Itera por cada letra Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/05_bucles_for/variante_4.py",
+          "code": "palabra = \"Python\"  # Asigna o actualiza un valor.\nfor letra in palabra:  # Repite el bloque para cada elemento del recorrido.\n    print(\"Letra:\", letra)  # Muestra el resultado en la consola.\nprint(\"Cantidad:\", len(palabra))  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "for",
+        "range",
+        "iteración",
+        "acumulador",
+        "len"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "06_bucles_while",
+      "title": "06 · Repetición con while",
+      "level": "Básico",
+      "concept": "while, break, continue",
+      "goal": "Controlar repeticiones mediante condiciones.",
+      "explanation": "while sigue mientras la condición sea verdadera. Actualiza las variables de control para evitar bucles infinitos.",
+      "variants": [
+        {
+          "name": "Cuenta regresiva",
+          "description": "Contador decreciente Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/06_bucles_while/variante_1.py",
+          "code": "contador = 5  # Asigna o actualiza un valor.\nwhile contador > 0:  # Repite mientras la condición sea verdadera.\n    print(\"Faltan\", contador)  # Muestra el resultado en la consola.\n    contador -= 1  # Evita que el bucle sea infinito.\nprint(\"¡Despegue!\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Intentos limitados",
+          "description": "Repite hasta acertar o terminar Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/06_bucles_while/variante_2.py",
+          "code": "secreto = 7  # Asigna o actualiza un valor.\nintentos = 0  # Asigna o actualiza un valor.\nrespuestas = [3, 5, 7]  # Tres intentos preparados: el tercero acierta.\nwhile intentos < 3:  # Repite mientras la condición sea verdadera.\n    numero = respuestas[intentos]  # Tomamos la respuesta correspondiente al intento.\n    intentos += 1  # Asigna o actualiza un valor.\n    if numero == secreto:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n        print(\"¡Correcto!\")  # Muestra el resultado en la consola.\n        break  # Sale del bucle inmediatamente.\nelse:  # Alternativa cuando no se cumple la condición anterior.\n    print(\"Se agotaron los intentos\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Menú simple",
+          "description": "Control por opción Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/06_bucles_while/variante_3.py",
+          "code": "opcion = \"\"  # Asigna o actualiza un valor.\nopciones = [\"1\", \"0\"]  # Primero saluda y luego sale.\npaso = 0  # Posición de la siguiente opción.\nwhile opcion != \"0\":  # Repite mientras la condición sea verdadera.\n    print(\"1. Saludar | 0. Salir\")  # Muestra el resultado en la consola.\n    opcion = opciones[paso]  # Opción ya definida, sin teclado.\n    paso += 1  # Avanza al siguiente elemento de la lista.\n    if opcion == \"1\":  # Comprueba la condición; ejecuta el bloque si es verdadera.\n        print(\"¡Hola desde el menú!\")  # Muestra el resultado en la consola.\n    elif opcion != \"0\":  # Comprueba la condición; ejecuta el bloque si es verdadera.\n        print(\"Opción no válida\")  # Muestra el resultado en la consola.\nprint(\"Hasta luego\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Ignorar impares",
+          "description": "continue salta una iteración Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/06_bucles_while/variante_4.py",
+          "code": "numero = 0  # Asigna o actualiza un valor.\nwhile numero < 10:  # Repite mientras la condición sea verdadera.\n    numero += 1  # Asigna o actualiza un valor.\n    if numero % 2 != 0:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n        continue  # Omite el print() para impares.\n    print(\"Par:\", numero)  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "while",
+        "break",
+        "continue",
+        "contador",
+        "bucle infinito"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "07_colecciones",
+      "title": "07 · Listas y diccionarios",
+      "level": "Intermedio",
+      "concept": "list, dict, append, len",
+      "goal": "Guardar y recorrer múltiples datos.",
+      "explanation": "Las listas mantienen elementos por posición (desde 0). Los diccionarios asocian claves con valores.",
+      "variants": [
+        {
+          "name": "Lista de frutas",
+          "description": "Índices y longitud Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/07_colecciones/variante_1.py",
+          "code": "frutas = [\"mango\", \"pera\", \"piña\"]  # Asigna o actualiza un valor.\nprint(\"Primera fruta:\", frutas[0])  # Muestra el resultado en la consola.\nprint(\"Total de frutas:\", len(frutas))  # Muestra el resultado en la consola.\nfor fruta in frutas:  # Repite el bloque para cada elemento del recorrido.\n    print(\"Fruta:\", fruta)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Agregar elementos",
+          "description": "append() amplía listas Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/07_colecciones/variante_2.py",
+          "code": "tareas = [\"Leer\", \"Practicar\"]  # Asigna o actualiza un valor.\ntareas.append(\"Practicar Python\")\nfor indice, tarea in enumerate(tareas, start=1):  # Repite el bloque para cada elemento del recorrido.\n    print(indice, \"-\", tarea)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Diccionario",
+          "description": "Accede a datos por clave Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/07_colecciones/variante_3.py",
+          "code": "estudiante = {\"nombre\": \"Sara\", \"edad\": 18, \"activo\": True}  # Asigna o actualiza un valor.\nprint(\"Nombre:\", estudiante[\"nombre\"])  # Muestra el resultado en la consola.\nprint(\"Edad:\", estudiante[\"edad\"])  # Muestra el resultado en la consola.\nestudiante[\"edad\"] += 1  # Asigna o actualiza un valor.\nprint(\"Edad actualizada:\", estudiante[\"edad\"])  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Notas y promedio",
+          "description": "sum() y len() Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/07_colecciones/variante_4.py",
+          "code": "notas = [12, 17, 15, 19]  # Asigna o actualiza un valor.\npromedio = sum(notas) / len(notas)  # Asigna o actualiza un valor.\nprint(\"Notas:\", notas)  # Muestra el resultado en la consola.\nprint(f\"Promedio: {promedio:.2f}\")  # Muestra el resultado en la consola.\nprint(\"Mayor nota:\", max(notas))  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "list",
+        "dict",
+        "append",
+        "enumerate",
+        "sum"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "08_funciones",
+      "title": "08 · Funciones",
+      "level": "Intermedio",
+      "concept": "def, return, parámetros",
+      "goal": "Crear código reutilizable.",
+      "explanation": "def define una función. Los parámetros reciben datos y return devuelve un valor. Una función no se ejecuta hasta ser llamada.",
+      "variants": [
+        {
+          "name": "Saludar mediante función",
+          "description": "def y llamada Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/08_funciones/variante_1.py",
+          "code": "# Definimos una función con un parámetro.\ndef saludar(nombre):  # Define una función que se podrá llamar después.\n    print(f\"¡Hola, {nombre}!\")  # Muestra el resultado en la consola.\n\nsaludar(\"María\")\nsaludar(\"Carlos\")\n"
+        },
+        {
+          "name": "Resultado retornado",
+          "description": "return entrega un resultado Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/08_funciones/variante_2.py",
+          "code": "def sumar(a, b):  # Define una función que se podrá llamar después.\n    return a + b  # Devuelve el resultado de la función.\n\nresultado = sumar(5, 7)  # Asigna o actualiza un valor.\nprint(\"Suma:\", resultado)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Validar valores",
+          "description": "Función con condicional Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/08_funciones/variante_3.py",
+          "code": "def es_par(numero):  # Define una función que se podrá llamar después.\n    return numero % 2 == 0  # Devuelve el resultado de la función.\n\nvalor = 8  # Asigna o actualiza un valor.\nif es_par(valor):  # Comprueba la condición; ejecuta el bloque si es verdadera.\n    print(\"Es par\")  # Muestra el resultado en la consola.\nelse:  # Alternativa cuando no se cumple la condición anterior.\n    print(\"Es impar\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Área de rectángulo",
+          "description": "Composición de funciones Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/08_funciones/variante_4.py",
+          "code": "def calcular_area(base, altura):  # Define una función que se podrá llamar después.\n    return base * altura  # Devuelve el resultado de la función.\n\ndef mostrar_resultado(area):  # Define una función que se podrá llamar después.\n    print(f\"El área calculada es {area:.2f}\")  # Muestra el resultado en la consola.\n\nbase = 5.0  # Asigna o actualiza un valor.\naltura = 3.0  # Asigna o actualiza un valor.\nmostrar_resultado(calcular_area(base, altura))\n"
+        }
+      ],
+      "terms": [
+        "def",
+        "parámetro",
+        "argumento",
+        "return",
+        "alcance"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "09_errores",
+      "title": "09 · Errores y módulos",
+      "level": "Intermedio",
+      "concept": "try, except, import, funciones integradas",
+      "goal": "Prevenir errores comunes y usar la biblioteca estándar.",
+      "explanation": "try/except permite manejar errores esperados. import incorpora herramientas que Python ya trae instaladas.",
+      "variants": [
+        {
+          "name": "Control de entrada",
+          "description": "Evita fallos por números inválidos Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/09_errores/variante_1.py",
+          "code": "try:  # Intenta ejecutar el bloque que podría fallar.\n    edad = 18  # Asigna o actualiza un valor.\n    print(\"Edad registrada:\", edad)  # Muestra el resultado en la consola.\nexcept ValueError:  # Maneja el tipo de error indicado.\n    # Ocurre cuando el texto no puede convertirse a entero.\n    print(\"Error: debes escribir un número entero\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "División protegida",
+          "description": "Maneja división entre cero Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/09_errores/variante_2.py",
+          "code": "try:  # Intenta ejecutar el bloque que podría fallar.\n    a = 12.0  # Asigna o actualiza un valor.\n    b = 3.0  # Asigna o actualiza un valor.\n    print(\"Resultado:\", a / b)  # Muestra el resultado en la consola.\nexcept ZeroDivisionError:  # Maneja el tipo de error indicado.\n    print(\"No se puede dividir entre cero\")  # Muestra el resultado en la consola.\nexcept ValueError:  # Maneja el tipo de error indicado.\n    print(\"Ingresa números válidos\")  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Uso de math",
+          "description": "Importa un módulo estándar Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/09_errores/variante_3.py",
+          "code": "import math  # math contiene operaciones matemáticas.\nradio = 3.0  # Asigna o actualiza un valor.\narea = math.pi * radio ** 2  # Asigna o actualiza un valor.\nprint(f\"Área del círculo: {area:.2f}\")  # Muestra el resultado en la consola.\nprint(\"Raíz de 81:\", math.sqrt(81))  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Funciones integradas",
+          "description": "sorted, min, max, abs Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/09_errores/variante_4.py",
+          "code": "numeros = [8, -3, 12, 1]  # Asigna o actualiza un valor.\nprint(\"Ordenados:\", sorted(numeros))  # Muestra el resultado en la consola.\nprint(\"Menor:\", min(numeros))  # Muestra el resultado en la consola.\nprint(\"Mayor:\", max(numeros))  # Muestra el resultado en la consola.\nprint(\"Valor absoluto:\", abs(-9))  # Muestra el resultado en la consola.\n"
+        }
+      ],
+      "terms": [
+        "try",
+        "except",
+        "ValueError",
+        "import",
+        "biblioteca estándar"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    },
+    {
+      "id": "10_poo",
+      "title": "10 · Programación orientada a objetos",
+      "level": "Intermedio",
+      "concept": "class, __init__, self, métodos",
+      "goal": "Crear objetos que agrupan datos y comportamientos.",
+      "explanation": "Una clase es un molde. __init__ inicializa cada objeto. self representa a la instancia que ejecuta el método.",
+      "variants": [
+        {
+          "name": "Clase Persona",
+          "description": "Propiedades y método Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/10_poo/variante_1.py",
+          "code": "class Persona:  # Declara una clase: molde para crear objetos.\n    def __init__(self, nombre):  # Define una función que se podrá llamar después.\n        self.nombre = nombre  # Atributo de la instancia.\n\n    def saludar(self):  # Define una función que se podrá llamar después.\n        print(f\"Hola, soy {self.nombre}\")  # Muestra el resultado en la consola.\n\npersona = Persona(\"Elena\")  # Asigna o actualiza un valor.\npersona.saludar()\n"
+        },
+        {
+          "name": "Cuenta bancaria",
+          "description": "Métodos cambian estado Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/10_poo/variante_2.py",
+          "code": "class Cuenta:  # Declara una clase: molde para crear objetos.\n    def __init__(self, saldo):  # Define una función que se podrá llamar después.\n        self.saldo = saldo  # Asigna o actualiza un valor.\n\n    def depositar(self, monto):  # Define una función que se podrá llamar después.\n        if monto > 0:  # Comprueba la condición; ejecuta el bloque si es verdadera.\n            self.saldo += monto  # Asigna o actualiza un valor.\n\ncuenta = Cuenta(100)  # Asigna o actualiza un valor.\ncuenta.depositar(25)\nprint(\"Saldo:\", cuenta.saldo)  # Muestra el resultado en la consola.\n"
+        },
+        {
+          "name": "Robot virtual",
+          "description": "Clase con posición Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/10_poo/variante_3.py",
+          "code": "class Robot:  # Declara una clase: molde para crear objetos.\n    def __init__(self):  # Define una función que se podrá llamar después.\n        self.posicion = 0  # Asigna o actualiza un valor.\n\n    def avanzar(self, pasos):  # Define una función que se podrá llamar después.\n        self.posicion += pasos  # Asigna o actualiza un valor.\n        print(f\"Robot en posición {self.posicion}\")  # Muestra el resultado en la consola.\n\nrobot = Robot()  # Asigna o actualiza un valor.\nrobot.avanzar(2)\nrobot.avanzar(3)\n"
+        },
+        {
+          "name": "Herencia sencilla",
+          "description": "Reutiliza una clase base Programa completo: no necesitas responder preguntas para ejecutarlo.",
+          "path": "ejercicios/10_poo/variante_4.py",
+          "code": "class Animal:  # Declara una clase: molde para crear objetos.\n    def hablar(self):  # Define una función que se podrá llamar después.\n        print(\"Un animal emite un sonido\")  # Muestra el resultado en la consola.\n\nclass Perro(Animal):  # Declara una clase: molde para crear objetos.\n    def hablar(self):  # Define una función que se podrá llamar después.\n        print(\"Guau\")  # Muestra el resultado en la consola.\n\nanimal = Animal()  # Asigna o actualiza un valor.\nperro = Perro()  # Asigna o actualiza un valor.\nanimal.hablar()\nperro.hablar()\n"
+        }
+      ],
+      "terms": [
+        "class",
+        "objeto",
+        "__init__",
+        "self",
+        "herencia"
+      ],
+      "challenge": "Ejemplo completamente resuelto. Lee cada línea, identifica el significado de los símbolos y observa el resultado. Puedes cambiar los valores para comprender su efecto; no hay preguntas ni calificaciones."
+    }
+  ],
+  "robots": [
+    {
+      "id": "robot_01_movimiento",
+      "title": "Robótica 01 · Movimiento en cuadrícula",
+      "concept": "coordenadas, POO, controles",
+      "goal": "Simular un robot que gira y avanza sin salir de un tablero.",
+      "explanation": "El robot tiene posición y dirección. La consola dibuja el mapa después de cada acción. No requiere hardware.",
+      "variants": [
+        {
+          "name": "Simulación completa",
+          "description": "Simular un robot que gira y avanza sin salir de un tablero.",
+          "path": "robotica/01_movimiento.py",
+          "code": "# SIMULADOR DE MOVIMIENTO: controla una posición en un tablero 7x7.\n# ROBOT_POS es una marca que utiliza el panel visual del navegador.\nDIRECCIONES = [(0, -1), (1, 0), (0, 1), (-1, 0)]  # N, E, S, O\nSIMBOLOS = [\"^\", \">\", \"v\", \"<\"]\n\nclass Robot:\n    def __init__(self, x=3, y=3):\n        self.x, self.y, self.direccion = x, y, 0\n\n    def girar_derecha(self):\n        self.direccion = (self.direccion + 1) % 4\n\n    def avanzar(self):\n        dx, dy = DIRECCIONES[self.direccion]\n        nuevo_x, nuevo_y = self.x + dx, self.y + dy\n        if 0 <= nuevo_x < 7 and 0 <= nuevo_y < 7:\n            self.x, self.y = nuevo_x, nuevo_y\n        else:\n            print(\"Límite detectado: movimiento detenido\")\n\n    def dibujar(self):\n        for y in range(7):\n            print(\" \".join(SIMBOLOS[self.direccion] if (x, y) == (self.x, self.y) else \".\" for x in range(7)))\n        print(f\"Posición: ({self.x}, {self.y})\")\n        print(f\"ROBOT_POS {self.x} {self.y}\")  # El panel dibuja esta coordenada.\n        print(\"-\" * 20)\n\nrobot = Robot()\nrobot.dibujar()\nfor accion in [\"avanzar\", \"avanzar\", \"derecha\", \"avanzar\", \"derecha\", \"avanzar\"]:\n    if accion == \"derecha\":\n        robot.girar_derecha()\n    else:\n        robot.avanzar()\n    robot.dibujar()\n"
+        }
+      ],
+      "terms": [
+        "simulación",
+        "sensor",
+        "actuador",
+        "estado"
+      ],
+      "challenge": "Cambia la secuencia de acciones y observa dónde termina el robot.",
+      "robot": true
+    },
+    {
+      "id": "robot_02_sensor",
+      "title": "Robótica 02 · Sensor de distancia",
+      "concept": "sensores, condiciones, estados",
+      "goal": "Simular la decisión de avanzar o detenerse según una distancia.",
+      "explanation": "La lista representa lecturas de un sensor ultrasónico ficticio. Cuando la distancia es pequeña, el robot se detiene.",
+      "variants": [
+        {
+          "name": "Simulación completa",
+          "description": "Simular la decisión de avanzar o detenerse según una distancia.",
+          "path": "robotica/02_sensor.py",
+          "code": "# SIMULACIÓN: lecturas de un sensor en centímetros.\n# No se comunica con sensores físicos reales.\nlecturas_cm = [55, 32, 19, 11, 7, 24, 40]\numbral_cm = 15\n\nclass RobotSeguro:\n    def __init__(self):\n        self.pasos = 0\n\n    def revisar_distancia(self, distancia):\n        if distancia < umbral_cm:\n            print(f\"{distancia} cm -> ALTO: obstáculo cercano\")\n            print(\"ROBOT_STATUS ALTO\")\n        else:\n            self.pasos += 1\n            print(f\"{distancia} cm -> AVANZAR: paso {self.pasos}\")\n            print(\"ROBOT_STATUS AVANZAR\")\n\nrobot = RobotSeguro()\nfor lectura in lecturas_cm:\n    robot.revisar_distancia(lectura)\nprint(\"Pasos seguros:\", robot.pasos)\n"
+        }
+      ],
+      "terms": [
+        "simulación",
+        "sensor",
+        "actuador",
+        "estado"
+      ],
+      "challenge": "Cambia umbral_cm de 15 a 25 y compara el comportamiento.",
+      "robot": true
+    },
+    {
+      "id": "robot_03_linea",
+      "title": "Robótica 03 · Seguidor de línea",
+      "concept": "sensores digitales, bucles, decisiones",
+      "goal": "Representar un robot que corrige su rumbo usando dos sensores.",
+      "explanation": "Los dos valores de cada lectura simulan sensores izquierdo y derecho. La salida indica si debe avanzar, girar o buscar la línea.",
+      "variants": [
+        {
+          "name": "Simulación completa",
+          "description": "Representar un robot que corrige su rumbo usando dos sensores.",
+          "path": "robotica/03_linea.py",
+          "code": "# SIMULACIÓN DE SEGUIDOR DE LÍNEA.\n# 1 significa que el sensor detecta la línea oscura; 0 que no.\nlecturas = [(1, 1), (1, 0), (1, 1), (0, 1), (0, 0), (1, 1)]\n\nclass SeguidorLinea:\n    def decidir(self, izquierdo, derecho):\n        if izquierdo == 1 and derecho == 1:\n            return \"AVANZAR\"\n        elif izquierdo == 1 and derecho == 0:\n            return \"GIRAR IZQUIERDA\"\n        elif izquierdo == 0 and derecho == 1:\n            return \"GIRAR DERECHA\"\n        else:\n            return \"BUSCAR LÍNEA\"\n\nrobot = SeguidorLinea()\nfor paso, (izquierdo, derecho) in enumerate(lecturas, start=1):\n    accion = robot.decidir(izquierdo, derecho)\n    print(f\"Lectura {paso}: I={izquierdo} D={derecho} -> {accion}\")\n    print(\"ROBOT_STATUS\", accion)\nprint(\"Simulación terminada\")\n"
+        }
+      ],
+      "terms": [
+        "simulación",
+        "sensor",
+        "actuador",
+        "estado"
+      ],
+      "challenge": "Agrega tres pares de sensores y predice las acciones antes de ejecutar.",
+      "robot": true
+    }
+  ]
+}
