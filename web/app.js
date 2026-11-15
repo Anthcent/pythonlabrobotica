@@ -111,7 +111,7 @@ function startPlayback(frames,tail,codeExit){
 }
 // Python runs in the browser via Pyodide inside a Web Worker (web/python-worker.js).
 // A fresh worker is created after a timeout because terminate() is the only way to stop a runaway loop.
-const RUN_TIMEOUT_MS=6000,MAX_CODE=30000,MAX_OUTPUT=30000;
+const RUN_TIMEOUT_MS=6000,MAX_CODE=30000,MAX_OUTPUT=30000,INPUT_HEADER_BYTES=8,MAX_INPUT_BYTES=8000;
 let pyWorker=null,pyReady=null;
 function startPythonWorker(){
  pyWorker=new Worker('python-worker.js');
@@ -127,24 +127,68 @@ async function runPython(code){
  $('runState').textContent='Cargando Python en el navegador...';
  try{await pyReady}catch(error){pyWorker.terminate();pyWorker=null;throw error}
  $('runState').textContent='Ejecutando Python...';
+ // input() needs SharedArrayBuffer, which browsers only expose on cross-origin isolated pages (COOP/COEP headers).
+ const inputBuffer=self.crossOriginIsolated?new SharedArrayBuffer(INPUT_HEADER_BYTES+MAX_INPUT_BYTES):null;
  return new Promise(resolve=>{
-  let stdout='',stderr='';
-  const timer=setTimeout(()=>{
+  let stdout='',stderr='',timer=null,budget=RUN_TIMEOUT_MS,startedAt=0;
+  const showLive=()=>{$('output').textContent=stdout+(stderr?'\n'+stderr:'')};
+  const finish=result=>{clearTimeout(timer);hideInputPrompt();resolve(result)};
+  const onTimeout=()=>{
    pyWorker.terminate();pyWorker=null;startPythonWorker();
-   resolve({stdout:stdout.slice(0,MAX_OUTPUT),stderr:'La ejecución superó los 6 segundos. Revisa si hay un bucle infinito.',exit_code:124});
-  },RUN_TIMEOUT_MS);
+   finish({stdout:stdout.slice(0,MAX_OUTPUT),stderr:'La ejecución superó los 6 segundos. Revisa si hay un bucle infinito.',exit_code:124});
+  };
+  // The time budget only counts while Python runs, not while the student is typing.
+  const resumeClock=()=>{startedAt=performance.now();timer=setTimeout(onTimeout,budget)};
+  const pauseClock=()=>{clearTimeout(timer);budget-=performance.now()-startedAt};
+  const answer=line=>{
+   const control=new Int32Array(inputBuffer,0,2);
+   if(line===null){Atomics.store(control,1,-1)}
+   else{
+    const bytes=new TextEncoder().encode(line).slice(0,MAX_INPUT_BYTES);
+    new Uint8Array(inputBuffer,INPUT_HEADER_BYTES,bytes.length).set(bytes);
+    Atomics.store(control,1,bytes.length);
+    stdout+=line+'\n';showLive();
+   }
+   $('runState').textContent='Ejecutando Python...';
+   resumeClock();
+   Atomics.store(control,0,1);Atomics.notify(control,0);
+  };
   pyWorker.onmessage=({data})=>{
    if(data.type==='stdout')stdout+=data.text;
    else if(data.type==='stderr')stderr+=data.text;
+   else if(data.type==='input'){
+    pauseClock();showLive();
+    $('runState').textContent='⌨ Esperando tu respuesta';
+    showInputPrompt(answer);
+   }
    else if(data.type==='done'){
-    clearTimeout(timer);
     if(data.internalError)stderr+=(stderr?'\n':'')+data.internalError;
-    resolve({stdout:stdout.slice(0,MAX_OUTPUT),stderr:stderr.slice(0,MAX_OUTPUT),exit_code:data.exitCode});
+    finish({stdout:stdout.slice(0,MAX_OUTPUT),stderr:stderr.slice(0,MAX_OUTPUT),exit_code:data.exitCode});
    }
   };
-  pyWorker.postMessage({type:'run',code});
+  resumeClock();
+  pyWorker.postMessage({type:'run',code,inputBuffer});
  });
 }
+// Console line where the student answers input(). Enter sends the line; Esc sends EOF.
+function showInputPrompt(onAnswer){
+ let box=$('stdinBox');
+ if(!box){
+  box=document.createElement('input');box.id='stdinBox';box.className='stdinBox';
+  box.setAttribute('autocomplete','off');box.setAttribute('spellcheck','false');
+  box.setAttribute('aria-label','Entrada del programa');
+  box.placeholder='Escribe tu respuesta y pulsa Enter · Esc para cancelar';
+  $('output').after(box);
+ }
+ box.value='';box.classList.remove('hidden');box.focus();
+ box.onkeydown=event=>{
+  if(event.key!=='Enter'&&event.key!=='Escape')return;
+  event.preventDefault();event.stopPropagation();
+  const value=event.key==='Enter'?box.value:null;
+  hideInputPrompt();onAnswer(value);
+ };
+}
+function hideInputPrompt(){const box=$('stdinBox');if(box){box.onkeydown=null;box.classList.add('hidden')}}
 startPythonWorker();
 async function runCode(){
  const b=$('runBtn');if(b.disabled)return;stopPlayback();b.disabled=true;
