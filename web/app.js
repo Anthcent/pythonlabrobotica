@@ -109,12 +109,48 @@ function startPlayback(frames,tail,codeExit){
  updateRobotControls();const token=playbackToken;
  playbackTimer=setTimeout(()=>playbackTick(token),400);
 }
+// Python runs in the browser via Pyodide inside a Web Worker (web/python-worker.js).
+// A fresh worker is created after a timeout because terminate() is the only way to stop a runaway loop.
+const RUN_TIMEOUT_MS=6000,MAX_CODE=30000,MAX_OUTPUT=30000;
+let pyWorker=null,pyReady=null;
+function startPythonWorker(){
+ pyWorker=new Worker('python-worker.js');
+ pyReady=new Promise((resolve,reject)=>{
+  pyWorker.onmessage=({data})=>{if(data.type==='ready')resolve();else if(data.type==='fatal')reject(Error(data.message));};
+  pyWorker.onerror=event=>reject(Error(event.message||'No se pudo iniciar Python'));
+ });
+ pyReady.catch(()=>{});
+}
+async function runPython(code){
+ if(code.length>MAX_CODE)throw Error('El código es demasiado grande');
+ if(!pyWorker)startPythonWorker();
+ $('runState').textContent='Cargando Python en el navegador...';
+ try{await pyReady}catch(error){pyWorker.terminate();pyWorker=null;throw error}
+ $('runState').textContent='Ejecutando Python...';
+ return new Promise(resolve=>{
+  let stdout='',stderr='';
+  const timer=setTimeout(()=>{
+   pyWorker.terminate();pyWorker=null;startPythonWorker();
+   resolve({stdout:stdout.slice(0,MAX_OUTPUT),stderr:'La ejecución superó los 6 segundos. Revisa si hay un bucle infinito.',exit_code:124});
+  },RUN_TIMEOUT_MS);
+  pyWorker.onmessage=({data})=>{
+   if(data.type==='stdout')stdout+=data.text;
+   else if(data.type==='stderr')stderr+=data.text;
+   else if(data.type==='done'){
+    clearTimeout(timer);
+    if(data.internalError)stderr+=(stderr?'\n':'')+data.internalError;
+    resolve({stdout:stdout.slice(0,MAX_OUTPUT),stderr:stderr.slice(0,MAX_OUTPUT),exit_code:data.exitCode});
+   }
+  };
+  pyWorker.postMessage({type:'run',code});
+ });
+}
+startPythonWorker();
 async function runCode(){
  const b=$('runBtn');if(b.disabled)return;stopPlayback();b.disabled=true;
  $('runState').textContent='Ejecutando Python...';$('output').textContent='Preparando resultado...';
  try{
-  const response=await fetch('/api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:$('code').value,stdin:''})});
-  const result=await response.json();if(!response.ok)throw Error(result.error||'Error del servidor');
+  const result=await runPython($('code').value);
   const stdout=result.stdout||'',stderr=result.stderr||'';
   if(selected?.robot){
    const {frames,tail}=collectRobotFrames(stdout);
@@ -125,7 +161,7 @@ async function runCode(){
    $('runState').textContent=result.exit_code===0?'✓ Ejecución finalizada':`✗ Error (código ${result.exit_code})`;
   }
   $('output').classList.toggle('error',result.exit_code!==0);
- }catch(error){$('output').textContent='No se pudo ejecutar. Abre la página con INICIAR_WINDOWS.bat o INICIAR_LINUX_MAC.sh. Detalle: '+error.message;$('output').classList.add('error');$('runState').textContent='Sin conexión al servidor local';}
+ }catch(error){$('output').textContent='No se pudo ejecutar Python en el navegador. Revisa tu conexión a internet (Pyodide se descarga la primera vez). Detalle: '+error.message;$('output').classList.add('error');$('runState').textContent='Python no disponible';}
  finally{b.disabled=false}
 }
 $('pauseRobot').onclick=()=>{if(!playback.length)return;playbackPaused=!playbackPaused;clearTimeout(playbackTimer);$('robotProgress').textContent=`Paso ${playbackIndex} de ${playback.length} · ${playbackPaused?'Pausado':'Reproduciendo'}`;updateRobotControls();if(!playbackPaused)playbackTimer=setTimeout(()=>playbackTick(playbackToken),Number($('robotSpeed').value));};
@@ -136,4 +172,4 @@ function renderGlossary(){const q=$('termSearch').value.toLowerCase();$('glossar
 function switchView(v){currentView=v;for(const [name,id] of [['learn','editorView'],['glossary','glossaryView'],['guide','guideView']])$(id).classList.toggle('hidden',v!==name);document.querySelectorAll('.act').forEach(b=>b.classList.toggle('active',b.dataset.view===v));if(v==='glossary')renderGlossary()}
 function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2200)}
 $('code').addEventListener('input',()=>{saveEdit();renderLineGuide()});$('code').addEventListener('scroll',syncEditor);$('code').addEventListener('click',syncEditor);$('code').addEventListener('keyup',syncEditor);$('code').addEventListener('keydown',event=>{if(event.key==='Tab'){event.preventDefault();const t=$('code'),start=t.selectionStart,end=t.selectionEnd;t.setRangeText('    ',start,end,'end');saveEdit()}else if(event.key==='Enter'){const t=$('code'),start=t.selectionStart,line=t.value.slice(0,start).split('\n').at(-1),spaces=line.match(/^\s*/)[0],newIndent=spaces+(line.trimEnd().endsWith(':')?'    ':'');event.preventDefault();t.setRangeText('\n'+newIndent,start,t.selectionEnd,'end');saveEdit()}});document.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key==='Enter'){event.preventDefault();if(currentView==='learn')runCode()}});$('runBtn').onclick=runCode;$('resetBtn').onclick=()=>{if(selected){pendingChanges.delete(selected.id+'/'+variant);$('code').value=selected.variants[variant].code;syncEditor();renderLineGuide();toast('Código original restaurado')}};$('clearBtn').onclick=()=>{$('output').textContent='❯ Consola limpia.';$('runState').textContent='Listo para ejecutar'};$('search').oninput=renderTopicList;$('termSearch').oninput=renderGlossary;document.querySelectorAll('.act').forEach(b=>b.onclick=()=>switchView(b.dataset.view));$('helpBtn').onclick=()=>{switchView('guide');toast('Atajos: Ctrl+Enter para ejecutar; Tab para indentar')};
-Promise.all([fetch('curriculum.json').then(r=>r.json()),fetch('lexico.json').then(r=>r.json())]).then(([json,lex])=>{lexicon=lex;data=json;all=[...json.exercises,...json.robots];selectTopic(all[0].id);renderGlossary()}).catch(e=>{$('output').textContent='No se pudo cargar el material. Inicia el servidor Python: '+e.message});
+Promise.all([fetch('curriculum.json').then(r=>r.json()),fetch('lexico.json').then(r=>r.json())]).then(([json,lex])=>{lexicon=lex;data=json;all=[...json.exercises,...json.robots];selectTopic(all[0].id);renderGlossary()}).catch(e=>{$('output').textContent='No se pudo cargar el material. Si abriste index.html directamente, sírvelo por HTTP (por ejemplo con INICIAR_WINDOWS.bat): '+e.message});
